@@ -47,4 +47,4 @@ next-env.d.ts
 .history
 
 # Cursor MCP config (contains tokens, never commit)
-.cursor/mcp.json
+.cursor/mcp.json # цей рядок вже був, він скопіювався з темплейтного репо
