@@ -1,0 +1,51 @@
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import React from 'react';
+
+import MusicTableSection from '~/components/tables/CompositionTable/MusicTableSection';
+import TitleWithQuote from '~/components/title-with-quote/TitleWithQuote';
+import UnderDevelopment from '~/components/under-development/UnderDevelopment';
+
+import { Language } from '~/types/types/language';
+import { createSeoMeta } from '~/utils/createSeoMeta';
+import { isProductionMode } from '~/utils/isProductionMode';
+
+import MainLayout from '~/layouts/main-layout/MainLayout';
+import { ROUTES } from '~/shared/components/constants/routes';
+
+export async function generateMetadata({ params }: Language): Promise<Metadata> {
+  const { lang } = await params;
+  setRequestLocale(lang);
+
+  const t = await getTranslations('meta.pages.artistry');
+
+  return createSeoMeta({
+    title: t('title'),
+    description: t('description'),
+    url: ROUTES.ARTISTRY,
+    locale: lang
+  });
+}
+
+export default async function Artistry({ params }: Readonly<Language>) {
+  const { lang } = await params;
+  setRequestLocale(lang);
+  const t = await getTranslations('liatoshynskyArtistry');
+
+  if (isProductionMode()) {
+    return <UnderDevelopment />;
+  }
+
+  return (
+    <MainLayout data-testid="Artistry">
+      <TitleWithQuote
+        quoteWidth={{ xs: '272px', sm: '316px', md: '341px', lg: '520px' }}
+        title={t('title-with-quote.title')}
+        quoteText={t('title-with-quote.quoteText')}
+        sourceText={t('title-with-quote.sourceText')}
+        color="black"
+      />
+      <MusicTableSection />
+    </MainLayout>
+  );
+}

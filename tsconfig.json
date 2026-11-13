@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "ignoreDeprecations": "5.0",
+    "isolatedModules": true,
+    "incremental": true,
+    "jsx": "preserve",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "~/public/*": ["./public/*"],
+      "~/utils/*": ["app/lib/utils/*"],
+      "~/ds-components/*": ["app/shared/components/design-system/all-components/*"],
+      "~/components/*": ["app/shared/components/*"],
+      "~/layouts/*": ["app/shared/layouts/*"],
+      "~/hooks/*": ["app/shared/hooks/*"],
+      "~/i18n/*": ["i18n/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.config.ts", "next-env.d.ts", "build/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

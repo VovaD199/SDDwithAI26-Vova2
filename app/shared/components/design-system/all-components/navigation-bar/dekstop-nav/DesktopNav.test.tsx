@@ -1,0 +1,123 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import type { SVGProps } from 'react';
+
+import DesktopNav from './DesktopNav';
+
+import type { NavigationDTO } from '~/domain/dto/navigation.dto';
+import { ROUTES } from '~/shared/components/constants/routes';
+
+jest.mock('~/i18n/navigation', () => ({
+  usePathname: jest.fn(() => ROUTES.HOME)
+}));
+
+jest.mock('~/shared/components/colored-svg/ColoredSvg.tsx', () => ({
+  Svg: (props: SVGProps<SVGSVGElement>) => <svg data-testid="svg-icon" {...props} />
+}));
+
+jest.mock('~/public/icons/chevron-down.svg', () => ({
+  __esModule: true,
+  default: () => <svg data-testid="chevron-down-icon" />
+}));
+
+jest.mock('~/public/icons/chevron-up.svg', () => ({
+  __esModule: true,
+  default: () => <svg data-testid="chevron-up-icon" />
+}));
+
+jest.mock('~/ds-components/button/Button');
+
+const navLabels: NavigationDTO[] = [
+  {
+    title: 'Фундація',
+    links: [
+      { label: 'Про Фундацію', href: '/about', visibility: true },
+      { label: 'Новини', href: ROUTES.NEWS, visibility: true },
+      { label: 'Медіа про нас', href: '/media', visibility: true }
+    ]
+  },
+  {
+    title: 'Архів',
+    links: [{ label: 'Архів', href: ROUTES.ARCHIVE, visibility: true }]
+  },
+  {
+    title: 'Співпраця',
+    links: [{ label: 'Співпраця', href: '/collaboration', visibility: true }]
+  }
+];
+
+const specialNav: NavigationDTO = {
+  title: 'Спеціальна',
+  links: [{ label: 'Спеціальна посилання', href: '/special', visibility: true }]
+};
+
+describe('DesktopNav', () => {
+  let originalResizeObserver: typeof global.ResizeObserver;
+
+  beforeAll(() => {
+    originalResizeObserver = global.ResizeObserver;
+
+    global.ResizeObserver = jest.fn(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn()
+    }));
+  });
+
+  afterAll(() => {
+    global.ResizeObserver = originalResizeObserver;
+  });
+
+  it('should render all top-level navigation labels', () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={specialNav} scrollDirection="up" />);
+
+    expect(screen.getByText('Фундація')).toBeInTheDocument();
+    expect(screen.getByText('Архів')).toBeInTheDocument();
+    expect(screen.getByText('Співпраця')).toBeInTheDocument();
+    expect(screen.getByText('Спеціальна')).toBeInTheDocument();
+  });
+
+  it('should open dropdown when clicking on a group with multiple links', () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={specialNav} scrollDirection="up" />);
+
+    fireEvent.click(screen.getByText('Фундація'));
+
+    expect(screen.getByText('Про Фундацію')).toBeInTheDocument();
+    expect(screen.getByText('Новини')).toBeInTheDocument();
+    expect(screen.getByText('Медіа про нас')).toBeInTheDocument();
+  });
+
+  it('should close dropdown when clicking on a dropdown item', async () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={specialNav} scrollDirection="up" />);
+    fireEvent.click(screen.getByText('Фундація'));
+
+    fireEvent.click(screen.getByText('Про Фундацію'));
+
+    await waitFor(() => {
+      expect(screen.queryByText('Про Фундацію')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should assign correct href to single-link navigation items', () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={specialNav} scrollDirection="up" />);
+
+    const archiveLink = screen.getByText('Архів').closest('a');
+    const collabLink = screen.getByText('Співпраця').closest('a');
+
+    expect(archiveLink).toHaveAttribute('href', ROUTES.ARCHIVE);
+    expect(collabLink).toHaveAttribute('href', '/collaboration');
+  });
+
+  it('dropdown items have correct hrefs', () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={specialNav} scrollDirection="up" />);
+    fireEvent.click(screen.getByText('Фундація'));
+
+    expect(screen.getByText('Новини').closest('a')).toHaveAttribute('href', ROUTES.NEWS);
+    expect(screen.getByText('Медіа про нас').closest('a')).toHaveAttribute('href', '/media');
+  });
+
+  it('should not show special navigation if specialNav is null', () => {
+    render(<DesktopNav navLabels={navLabels} specialNav={null} scrollDirection="up" />);
+
+    expect(screen.queryByText('Спеціальна')).not.toBeInTheDocument();
+  });
+});

@@ -1,0 +1,274 @@
+import { FilterQuery, PipelineStage } from 'mongoose';
+
+import { CompositionsTitleFilters } from '~/types/types/tableFilters.types';
+
+import { CompositionDTO, Condition, OpusDTO, Query } from '~/domain/dto/composition.dto';
+import dbConnect from '~/infrastructure/db/connect';
+import { Category } from '~/infrastructure/models/artistry/artistryCategoriesData';
+import { Genre } from '~/infrastructure/models/artistry/artistryGenreData';
+import { Opus } from '~/infrastructure/models/artistry/artistryOpusData';
+import { Compositions } from '~/infrastructure/models/artistry/artistryTableData';
+import { namedFilterHelper, searchHelper, yearHelper } from '~/lib/utils/searchAndFiltersHelpers';
+import { compositionSchema, compositionTitlesSchema } from '~/validators/artistry/composition.schema';
+import { namedFilterSchema } from '~/validators/artistry/namedFilter.schema';
+import { ArraySchema } from '~/validators/constants';
+
+function buildWordSearchConditions<T>(words: string[], fields: string[]): FilterQuery<T>[] {
+  return words.map((word) => ({
+    $or: fields.map((field) => ({
+      [field]: { $regex: word, $options: 'i' }
+    }))
+  })) as FilterQuery<T>[];
+}
+
+function buildAllWordsPresent<T>(words: string[], fieldGroups: string[][]): FilterQuery<T> {
+  const andClauses = fieldGroups.map((group) => buildWordSearchConditions<T>(words, group));
+
+  return {
+    $or: andClauses.map((clauses) => ({ $and: clauses }))
+  };
+}
+
+const compositionsRepository = {
+  async getAllGenres() {
+    await dbConnect();
+    const genres = await Genre.find().lean();
+    return ArraySchema(namedFilterSchema).parse(genres);
+  },
+
+  async getAllCategories() {
+    await dbConnect();
+    const categories = await Category.find().lean();
+    return ArraySchema(namedFilterSchema).parse(categories);
+  },
+
+  async getCompositionsYearRange() {
+    await dbConnect();
+    const agg = await Compositions.aggregate([
+      { $match: { year: { $exists: true, $ne: null } } },
+      {
+        $group: {
+          _id: null,
+          minYear: { $min: '$year' },
+          maxYear: { $max: '$year' }
+        }
+      }
+    ]);
+    const row = Array.isArray(agg) && agg.length > 0 ? agg[0] : null;
+    const now = new Date().getFullYear();
+    return {
+      minYear: row?.minYear ?? 1900,
+      maxYear: row?.maxYear ?? now
+    };
+  },
+
+  async getAllCompositionTitles(filters: CompositionsTitleFilters = {}) {
+    await dbConnect();
+
+    const { search, category, genre, yearFrom, yearTo } = filters;
+
+    let searchWords: string[] = [];
+
+    if (search?.trim()) {
+      searchWords = search
+        .trim()
+        .split(/\s+/)
+        .map((w) => w.trim())
+        .filter((w): w is string => w.length >= 2)
+        .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    }
+
+    const hasSearch = searchWords.length > 0;
+
+    const compositionPipeline: PipelineStage[] = [
+      {
+        $lookup: {
+          from: 'opus',
+          localField: 'opusId',
+          foreignField: '_id',
+          as: 'opusData'
+        }
+      },
+      {
+        $unwind: {
+          path: '$opusData',
+          preserveNullAndEmptyArrays: true
+        }
+      }
+    ];
+
+    const compMatch: FilterQuery<CompositionDTO>[] = [];
+
+    if (hasSearch) {
+      const compFields = ['title.uk', 'title.en'];
+      const opusFields = ['opusData.title.uk', 'opusData.title.en'];
+
+      compMatch.push(
+        buildAllWordsPresent<CompositionDTO>(searchWords, [compFields, opusFields, [...compFields, ...opusFields]])
+      );
+    }
+
+    const categoryKeys = namedFilterHelper(category);
+    if (categoryKeys.length) {
+      const categoryDocs = await Category.find({ key: { $in: categoryKeys } })
+        .select('_id')
+        .lean();
+      const categoryIds = categoryDocs.map((d) => d._id);
+
+      if (categoryIds.length) {
+        compMatch.push({ categories: { $in: categoryIds } });
+      } else {
+        return [];
+      }
+    }
+
+    const genreKeys = namedFilterHelper(genre);
+    if (genreKeys.length) {
+      const genreDocs = await Genre.find({ key: { $in: genreKeys } })
+        .select('_id')
+        .lean();
+      const genreIds = genreDocs.map((d) => d._id);
+
+      if (genreIds.length) {
+        compMatch.push({ genres: { $in: genreIds } });
+      } else {
+        return [];
+      }
+    }
+
+    const yearCond: { $gte?: number; $lte?: number } = {};
+    if (yearFrom != null) yearCond.$gte = yearFrom;
+    if (yearTo != null) yearCond.$lte = yearTo;
+    if (Object.keys(yearCond).length) {
+      compMatch.push({ year: yearCond });
+    }
+
+    if (compMatch.length > 0) {
+      compositionPipeline.push({
+        $match: compMatch.length === 1 ? compMatch[0] : { $and: compMatch }
+      });
+    }
+
+    compositionPipeline.push({
+      $project: {
+        _id: 1,
+        title: 1,
+        kind: { $literal: 'composition' },
+        opusNumber: '$opusData.number'
+      }
+    });
+
+    const compositionTitles = await Compositions.aggregate(compositionPipeline).exec();
+
+    const opusPipeline: PipelineStage[] = [];
+
+    const opusMatch: FilterQuery<OpusDTO> = {};
+
+    if (hasSearch) {
+      opusMatch.$and = buildWordSearchConditions<OpusDTO>(searchWords, ['title.uk', 'title.en']);
+    }
+
+    const opusYearCond: { $gte?: number; $lte?: number } = {};
+    if (yearFrom != null) opusYearCond.$gte = yearFrom;
+    if (yearTo != null) opusYearCond.$lte = yearTo;
+    if (Object.keys(opusYearCond).length) {
+      if (!opusMatch.$and) opusMatch.$and = [];
+      opusMatch.$and.push({ releaseYear: opusYearCond });
+    }
+
+    if (Object.keys(opusMatch).length > 0) {
+      opusPipeline.push({ $match: opusMatch });
+    }
+
+    opusPipeline.push({
+      $project: {
+        _id: 1,
+        title: 1,
+        kind: { $literal: 'opus' },
+        opusNumber: '$number'
+      }
+    });
+
+    const opusTitles = await Opus.aggregate(opusPipeline).exec();
+
+    const allTitlesMap = new Map<string, any>();
+
+    [...compositionTitles, ...opusTitles].forEach((item) => {
+      const key = item._id.toString();
+      if (!allTitlesMap.has(key)) {
+        allTitlesMap.set(key, item);
+      }
+    });
+
+    const allTitles = Array.from(allTitlesMap.values());
+
+    return ArraySchema(compositionTitlesSchema).parse(allTitles);
+  },
+
+  async getAllCompositions(
+    search?: string,
+    filters?: { categories?: string[]; genres?: string[]; years?: { min?: number; max?: number } }
+  ) {
+    await dbConnect();
+
+    const conditions: Condition[] = [];
+
+    const readySearchExpression = searchHelper(search);
+    if (readySearchExpression) {
+      const pattern = readySearchExpression;
+      const matchingOpuses = await Opus.find({
+        $or: [{ 'title.uk': { $regex: pattern, $options: 'i' } }, { 'title.en': { $regex: pattern, $options: 'i' } }]
+      })
+        .select('_id')
+        .lean();
+
+      conditions.push({
+        $or: [
+          { 'title.uk': { $regex: pattern, $options: 'i' } },
+          { 'title.en': { $regex: pattern, $options: 'i' } },
+          { opusId: { $in: matchingOpuses.map((o) => o._id) } }
+        ]
+      });
+    }
+
+    const readyGenreArray = namedFilterHelper(filters?.genres);
+    if (readyGenreArray.length > 0) {
+      const genresIds = await Genre.find({ key: { $in: readyGenreArray } })
+        .select('_id')
+        .lean();
+      conditions.push({ genres: { $in: genresIds } });
+    }
+
+    const readyCategoryArray = namedFilterHelper(filters?.categories);
+    if (readyCategoryArray.length > 0) {
+      const categoryIds = await Category.find({ key: { $in: readyCategoryArray } })
+        .select('_id')
+        .lean();
+
+      conditions.push({ categories: { $in: categoryIds } });
+    }
+
+    const readyYearObject = yearHelper(filters?.years);
+    if (readyYearObject) conditions.push({ year: { $gte: readyYearObject.min, $lte: readyYearObject.max } });
+
+    let query: Query = {};
+    if (conditions.length === 1) query = conditions[0];
+    else if (conditions.length > 1) query = { $and: conditions };
+
+    const compositions = await Compositions.find(query)
+      .populate('genres')
+      .populate('categories')
+      .populate({ path: 'opusId', model: Opus })
+      .lean();
+
+    if (!compositions || compositions.length === 0) return [];
+
+    return ArraySchema(compositionSchema).parse(compositions);
+  }
+};
+
+function newCompositionsRepo(): typeof compositionsRepository {
+  return compositionsRepository;
+}
+
+export default newCompositionsRepo;

@@ -1,0 +1,415 @@
+{
+  "collaborations": {
+    "metaData": "Liatoshynsky collaborations",
+    "text": "Collaborations"
+  },
+  "footer": {
+    "donationButton": "Support the Foundation",
+    "donationButtonShort": "Support",
+    "contactUsButton": "Contact us",
+    "opentechLabel": "Developed by",
+    "phoneLabel": "Phone",
+    "phoneCopiedAlert": "Copied"
+  },
+  "header": {
+    "supportButton": "Support",
+    "navLabels": {
+      "liatoshynsky": "Borys Liatoshynskyi",
+      "biography": "Biography",
+      "artistry": "Artistry",
+      "research": "Research and scientific works",
+      "foundation": "Foundation",
+      "foundationHome": "About the foundation",
+      "news": "News",
+      "mediaAboutUs": "Media",
+      "events": "Events",
+      "archive": "Archive",
+      "collaboration": "Cooperation"
+    }
+  },
+  "contactForm": {
+    "requiredFields": "* – required fields",
+    "name": "Name *",
+    "email": "Email address *",
+    "phoneNumber": "Phone number",
+    "message": "Your message *",
+    "policyText": "I agree about the processing of my personal data and agree to the",
+    "policyLink": "Privacy Policy",
+    "buttonText": "Send request",
+    "errors": {
+      "nameMinLength": "The name must contain at least 2 characters",
+      "emailRequired": "Please enter your email address",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneNumberInvalid": "Check the phone number format",
+      "policyRequired": "You must agree to continue",
+      "nameRequired": "This field is required",
+      "nameMaxLength": "The name cannot exceed 50 characters",
+      "messageRequired": "This field is required",
+      "messageMinLength": "The comment must contain at least 10 characters",
+      "messageMaxLength": "The message cannot exceed 1000 characters"
+    },
+    "confirmation": {
+      "title": "ThAnK YoU",
+      "subtitle": "Your request has been sent",
+      "btnText": "Close"
+    }
+  },
+  "donationForm": {
+    "donationTitle": "QUICK DONATION:",
+    "donationDescription": "Choose an amount to support the Foundation",
+    "subscribeTitle": "SUBSCRIBE:",
+    "donationSwitch": "Donation",
+    "subscribeSwitch": "Subscription",
+    "donationButton": "Make a donation",
+    "subscribeButton": "Subscribe"
+  },
+  "home": {
+    "liatoshynskyOffice": {
+      "office": "ArcHive",
+      "name": "LIaTosHynSKy",
+      "goToOfficeButton": "Go to the archive"
+    }
+  },
+  "common": {
+    "languageNotFound": "The page is not yet available in this language",
+    "pageNotFound": {
+      "errorTitle": "OoPs!",
+      "errorMessage": "The page you are looking for does not exist, search again on the main page"
+    },
+    "goHome": "Return to home",
+    "viewMore": "View More",
+    "copied": "Copied"
+  },
+  "quote": {
+    "mainText": "There will, of course, be a lot of interesting things, but you won't hear everything, because two concerts or operas will be held in different theaters and halls in one evening.",
+    "sourceText": "Letter from Boris Liatoshynsky to Margarita Tsarevich, 29 September 1957, Berlin"
+  },
+  "research": {
+    "title-with-quote": {
+      "title": "ReSeArCh AnD\nsCiEnTiFiC wOrK",
+      "quoteText": "Oh, my dear, my dear darling, when will that time finally come when we will be together, in the living room, where it's so beautiful, there's a piano and lots of sheet music.",
+      "sourceText": "Letter from Borys Liatoshynsky to Margarita Tsarevych, May 4, 1916, Saratov"
+    }
+  },
+  "liatoshynskyArtistry": {
+    "title-with-quote": {
+      "title": "LIaTosHynSKy's ArTiStRy",
+      "quoteText": "Oh, my dear, my dear darling, when will that time finally come when we will be together, in the living room, where it's so beautiful, there's a piano and lots of sheet music.",
+      "sourceText": "Letter from Borys Liatoshynsky to Margarita Tsarevych, May 4, 1916, Saratov"
+    }
+  },
+  "termsOfUse": {
+    "title": "TeRms oF uSe OF ThE sItE",
+    "quote": "You can play the keys however you want. But you want something good to come out of it, right? So here are a few rules. Read them before you start improvising.",
+    "archiveUsage": "When using archival materials in scientific, public or media projects, a reference to the source with an active hyperlink to the Foundation's website is mandatory.",
+    "paidNotes": "Some of the sheet music may be paid for. In such cases, there will be a button on the page of the relevant work to request access.",
+    "copyrightRespect": "We urge you to be careful about copyright. If you use materials from this site in publications or other projects, please indicate the source with a hyperlink to the Foundation's website.",
+    "behaviorIntro": "Our site does not allow for user comments or content posting. However, we ask that you:",
+    "respectAuthorsIntro": "We sincerely thank you for your interest in Ukrainian music and the figure of Borys Liatoshynsky. Please be careful with the works you use. Respect for copyright is not only a legal issue, but also an ethical norm.",
+    "respectAuthorsOutro": "By preserving and distributing them responsibly, we, together with you, support the culture of memory and the modern sound of Ukrainian classics.",
+    "libraryAccessTitle": "Access to the music library and archive:",
+    "generalProvisionsTitle": "General provisions:",
+    "copyrightTitle": "Copyright and the role of the UAASP:",
+    "registerTitle": "Registration and personal account:",
+    "behaviorTitle": "Behavior on the site:",
+    "supportTitle": "Technical questions and support:",
+    "respectAuthorsTitle": "Respect to the authors:",
+    "concertLicense": "If you are the organizer of a concert or are planning to broadcast Liatoshynsky's works, contact the UAASP to obtain the appropriate license by email.",
+    "downloadNotes": "download available sheet music;",
+    "saveNotes": "save selected works",
+    "subscribeNews": "subscribe to the Foundation's newsletter (concerts, updates, events, etc.).",
+    "useResponsibly": "use the site materials responsibly;",
+    "noSharing": "not to transfer access to downloaded materials to third parties;",
+    "noPublicPosting": "not to make the received notes and/or archival documents publicly available on other resources without the consent of the Foundation.",
+    "buttons": {
+      "library": {
+        "short": "View the library",
+        "full": "View the sheet music library"
+      },
+      "archive": {
+        "short": "View the Archive",
+        "full": "View the Archive"
+      }
+    },
+    "seeMore": "See more"
+  },
+  "supportUs": {
+    "donation": {
+      "title": "SupPorT The FoUndaTioN",
+      "subTitle": "All contributions go <b>directly</b> to the Liatoshynsky Foundation account and are used to support its mission. Choose a currency convenient for you - <b>the transfer details are below</b>:"
+    },
+    "payment": {
+      "copyHint": "IBAN is copied"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions:",
+      "subtitle": {
+        "question": "Didn't find the answer you were looking for?",
+        "answer": "Contact us in a way convenient for you:"
+      },
+      "phoneCopiedAlert": "Copied"
+    }
+  },
+  "media": {
+    "title": "NeWs, EveNtS aNd MeDia",
+    "emptyState": {
+      "news": {
+        "title": "No news yet",
+        "description": "Latest news and updates from the Liatoshynsky Foundation will appear here"
+      },
+      "events": {
+        "title": "No events yet",
+        "description": "Upcoming and past events from the Liatoshynsky Foundation will appear here"
+      },
+      "press": {
+        "title": "No media mentions yet",
+        "description": "Publications and mentions about the Liatoshynsky Foundation in the media will appear here"
+      }
+    }
+  },
+  "collaboration": {
+    "offerCollaboration": {
+      "title": "We are open to collaboration, inquiries, and dialogue:",
+      "formTitle": "Offer collaboration"
+    },
+    "collaborationInfo": {
+      "title": "Charitable donations - for mission development",
+      "supportButton": "Support the Foundation",
+      "supportTitle": "Flexible and personalized support",
+      "partnersTitle": "Recognition of partners and patrons",
+      "partnershipTitle": "Join the partnership"
+    }
+  },
+  "table": {
+    "columns": {
+      "opus": "Opus",
+      "name": "Name",
+      "year": "Year",
+      "genre": "Genre"
+    },
+    "composition": {
+      "filters": {
+        "category": "Category",
+        "genre": "Genre",
+        "year": "Year of composition"
+      },
+      "name": {
+        "composition": "All compositions"
+      },
+      "notFound": {
+        "title": "OoPs! NoThinG HeRe",
+        "description": "Our archivist cat has searched every drawer. Try another query"
+      }
+    },
+    "buttons": {
+      "viewSheetMusic": "View sheet music",
+      "downloadMusic": "Download",
+      "listenToComposition": "Listen to the composition"
+    },
+    "work": {
+      "name": "All documents",
+      "filters": {
+        "author": "Author",
+        "yearLabel": "Year written"
+      },
+      "columns": {
+        "name": "Title",
+        "author": "Author",
+        "year": "Year"
+      },
+      "buttons": {
+        "view": "Preview",
+        "goto": "Visit"
+      }
+    },
+    "documents": {
+      "name": "All files",
+      "columns": {
+        "cipher": "Code",
+        "name": "File name",
+        "date": "Dates",
+        "sheets": "Sheet",
+        "content": "Composition and Content of Documents"
+      },
+      "buttons": {
+        "view": "View PDF",
+        "shortView": "PDF",
+        "mobileView": "View"
+      }
+    },
+    "controls": {
+      "filters": "Filters"
+    }
+  },
+  "cookie": {
+    "modal": {
+      "title": "🍪 Cookies",
+      "description": "We use cookies to enable essential site functionality and for analytics. Please review our <link>privacy policy</link> to learn more.",
+      "settingsButton": "Cookie settings",
+      "acceptButton": "Accept all"
+    },
+    "preferences": {
+      "title": "Cookie Settings",
+      "description": "We respect your right to privacy. You can choose which types of cookies we may use. Adjust the settings below according to your preferences.",
+      "analytics": "Analytics",
+      "analyticsDescription": "Allows us to collect anonymous data about how you use the site — to make it more user-friendly and intuitive",
+      "selectAllButton": "Select All",
+      "saveSettingsButton": "Save Settings"
+    }
+  },
+  "filtering": {
+    "numeric": {
+      "from": "From",
+      "to": "To"
+    },
+    "errors": {
+      "minValue": "The 'From' value cannot be less than {min}",
+      "minValueTo": "The 'To' value cannot be less than {min}",
+      "maxValue": "The 'To' value cannot be greater than {max}",
+      "minDistance": "The 'To' value cannot be less than the 'From' value",
+      "onlyNumbers": "Only numeric values are allowed"
+    },
+    "selected": "selected",
+    "clear": "Clear filter",
+    "clearAll": "Clear all filters"
+  },
+  "search": {
+    "notFound": "Not found",
+    "loading": "Loading..."
+  },
+  "contactsInfoPage": {
+    "contacts": "Contacts",
+    "phoneNumber": "Phone number",
+    "email": "Email",
+    "socialMedia": "We are on social media",
+    "formTitle": "Contact form",
+    "formSubtitle": "Send a request and we will contact you within a few business days"
+  },
+  "getNotes": {
+    "notesList": {
+      "title": "NoTeS:",
+      "subtitle": "All notes",
+      "freeNotesButton": "View",
+      "paidNotesButton": "Contact us"
+    },
+    "form": {
+      "title": "Sheet Music Request",
+      "subtitle": "Send your request and we will contact you within a few business days"
+    },
+    "confirmation": {
+      "title": "ThAnK YoU",
+      "subtitle": "For submitting a request to receive the sheet music",
+      "btnText": "Close"
+    }
+  },
+  "error": {
+    "title": "SoRrY, sOmEtHinG wEnT wRoNg...",
+    "subtitle": "Try to use navigation one more time"
+  },
+  "underDevelopment": {
+    "title": "PaGe UnDeR CoNsTrUcTiOn",
+    "subtitle": "We are still working on this page. Please check back later — a new section will appear here very soon.",
+    "button": "Return to home"
+  },
+  "warSupport": {
+    "title": "RuSSiA'S WaR AgAiNsT UkRaInIaNs",
+    "ourPartners": {
+      "title": "OUR PARTNERS:",
+      "description": "The Liatoshynsky Foundation is sincerely open to partnership and appreciates any support. We believe that cooperation based on trust and mutual respect will help us develop Ukrainian musical culture together. We invite those who share our mission and seek to participate in preserving the legacy of Borys Liatoshynsky and supporting contemporary musical initiatives to partner with us."
+    }
+  },
+  "archivePage": {
+    "title": "ArcHive",
+    "description": "Original documents are stored in the private archive of the Borys Liatoshynsky Cabinet-Museum (Kyiv, Ukraine)",
+    "searchPlaceholder": "Search"
+  },
+  "archiveCase": {
+    "back": "Go back",
+    "meta": {
+      "code": "Reference code",
+      "dates": "Case dates",
+      "sheets": "Sheets"
+    },
+    "documents": {
+      "ariaLabel": "Case documents"
+    },
+    "navigation": {
+      "prev": "Previous case",
+      "next": "Next case"
+    },
+    "buttons": {
+      "viewPdf": "View PDF"
+    }
+  },
+  "biography": {
+    "heroSection": {
+      "title": "Liatoshynsky’s Life Story"
+    }
+  },
+  "news": {
+    "publishedAtLabel": "Published:",
+    "viewButton": "View",
+    "goToButton": "Go to"
+  },
+  "meta": {
+    "brand": "Liatoshynsky Foundation",
+    "pages": {
+      "home": {
+        "title": "Home",
+        "description": "Welcome to the Liatoshynsky Foundation. Discover the legacy of Borys Liatoshynsky and support Ukrainian musical heritage."
+      },
+      "aboutUs": {
+        "title": "About the Foundation",
+        "description": "Learn about the Liatoshynsky Foundation, its mission, and goals."
+      },
+      "artistry": {
+        "title": "Artistry",
+        "description": "Explore the works of Borys Liatoshynsky."
+      },
+      "biography": {
+        "title": "Biography",
+        "description": "Learn about the life of Borys Liatoshynsky."
+      },
+      "contacts": {
+        "title": "Contacts",
+        "description": "Send us a message and we will get back to you within a few business days."
+      },
+      "privacyPolicy": {
+        "title": "Privacy Policy",
+        "description": "Learn how the Liatoshynsky Foundation collects, uses, and protects your personal data under the Privacy Policy."
+      },
+      "research": {
+        "title": "Research and Scientific Works",
+        "description": "Explore research and scientific works related to Borys Liatoshynsky."
+      },
+      "supportUs": {
+        "title": "Support the Foundation",
+        "description": "All contributions go directly to the Liatoshynsky Foundation and support its mission."
+      },
+      "terms": {
+        "title": "Terms of Use",
+        "description": "Read the terms of using the Liatoshynsky Foundation website, including access to materials and user responsibilities."
+      },
+      "warInUkraine": {
+        "title": "Liatoshynsky Foundation During the War in Ukraine",
+        "description": "Learn how the Liatoshynsky Foundation operates during the war in Ukraine and which initiatives it supports."
+      },
+      "cooperation": {
+        "title": "Cooperation",
+        "description": "Information about cooperation opportunities with the Liatoshynsky Foundation for partners, donors, and patrons."
+      },
+      "archive": {
+        "title": "Archive",
+        "description": "A collection of archival materials by Borys Liatoshynsky, including documents, letters, posters, manuscripts, and other historical sources."
+      },
+      "news": {
+        "title": "News, Events and Media",
+        "description": "Latest news from the Liatoshynsky Foundation, upcoming events, and media presence."
+      },
+      "notFound": {
+        "title": "Page Not Found",
+        "description": "The requested page could not be found. Please check the URL or return to the Liatoshynsky Foundation homepage."
+      }
+    }
+  }
+}

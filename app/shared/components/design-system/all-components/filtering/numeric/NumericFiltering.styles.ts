@@ -1,0 +1,37 @@
+import { mainHexPallete } from '../../theme/colors';
+
+export const styles = {
+  container: {
+    borderRadius: '8px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '32px'
+  },
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '57px',
+    py: '16px',
+    px: '24px'
+  },
+  textfieldContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '10px'
+  },
+  textfield: {
+    width: '117px'
+  },
+  divider: {
+    background: mainHexPallete.white,
+    mt: '8px',
+    mb: '8px'
+  },
+  footer: {
+    display: 'flex',
+    justifyContent: 'left',
+    alignItems: 'center',
+    pr: '8px',
+    pl: '8px'
+  }
+};
